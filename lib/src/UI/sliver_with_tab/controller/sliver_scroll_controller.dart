@@ -3,12 +3,21 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_sample_jpv/src/UI/sliver_with_tab/data/data.dart';
 import 'package:flutter_sample_jpv/src/UI/sliver_with_tab/models/models.dart';
 
+class Dimension {
+  final Offset? offset;
+  final Size? size;
+
+  Dimension({this.offset, this.size});
+}
+
 class SliverScrollController {
   //List of products - Lista de productos
   late List<ProductCategory> listCategory;
 
   //list of offSet values - Lista de valores offSet de los item
   List<double> listOffSetItemHeader = [];
+  // list offsets of categories inside the SliverList
+  List<Dimension> listDimensionCategoryGroup = [];
 
   //Header notifier - Notificaciones de cabereca
   final headerNotifier = ValueNotifier<MyHeader?>(null);
@@ -33,6 +42,8 @@ class SliverScrollController {
   // Value that indicates if the header is visible
   final visibleHeader = ValueNotifier(false);
 
+  final shouldListenToTouchScroll = ValueNotifier<bool>(true);
+
   void loadDataRandom() {
     final productsTwo = [...products];
     final productsThree = [...products];
@@ -44,16 +55,77 @@ class SliverScrollController {
 
     listCategory = [
       ProductCategory(
+        category: 'Gimpub Sushi',
+        products: productsFour,
+      ),
+      ProductCategory(
         category: 'Order Again',
         products: products,
+      ),
+      ProductCategory(
+        category: 'Mlawi',
+        products: [
+          Product(
+            name: 'Chawarma',
+            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
+            description:
+                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
+            price: '\$4',
+          ),
+          Product(
+            name: 'Chapati',
+            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
+            description:
+                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
+            price: '\$4',
+          ),
+        ],
       ),
       ProductCategory(
         category: 'Picked For You',
         products: productsTwo,
       ),
       ProductCategory(
+        category: 'Pizza',
+        products: [
+          Product(
+            name: 'Pizza',
+            image: 'assets/sliver_with_scrollable_tabs/pizza.jpg',
+            description:
+                'Pizza is a savory dish of Italian origin consisting of a usually round, flattened base of leavened wheat-based dough to bake.',
+            price: '\$39',
+          ),
+          Product(
+            name: 'Pizza',
+            image: 'assets/sliver_with_scrollable_tabs/pizza.jpg',
+            description:
+                'Pizza is a savory dish of Italian origin consisting of a usually round, flattened base of leavened wheat-based dough to bake.',
+            price: '\$39',
+          ),
+        ],
+      ),
+      ProductCategory(
         category: 'Startes',
         products: productsThree,
+      ),
+      ProductCategory(
+        category: 'Fast Food',
+        products: [
+          Product(
+            name: 'Chapati',
+            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
+            description:
+                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
+            price: '\$4',
+          ),
+          Product(
+            name: 'Chapati',
+            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
+            description:
+                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
+            price: '\$4',
+          ),
+        ],
       ),
       ProductCategory(
         category: 'Gimpub Sushi',
@@ -66,7 +138,8 @@ class SliverScrollController {
     loadDataRandom();
     listOffSetItemHeader =
         List.generate(listCategory.length, (index) => index.toDouble());
-
+    listDimensionCategoryGroup = List.generate(listCategory.length,
+        (index) => Dimension(offset: Offset.zero, size: Size.zero));
     scrollControllerGlobally = ScrollController();
     scrollControllerItemHeader = ScrollController();
 
@@ -114,7 +187,7 @@ class SliverScrollController {
     }
   }
 
-  void refreshHeader(
+  refreshHeader(
     int index,
     bool visible, {
     int? lastIndex,
@@ -122,7 +195,6 @@ class SliverScrollController {
     final headerValue = headerNotifier.value;
     final headerTitle = headerValue?.index ?? index;
     final headerVisible = headerValue?.visible ?? false;
-
     if (headerTitle != index || lastIndex != null || headerVisible != visible) {
       Future.microtask(
         () {
@@ -140,5 +212,32 @@ class SliverScrollController {
         },
       );
     }
+  }
+
+  onHeaderPressed(int index) async {
+    shouldListenToTouchScroll.value = false;
+    refreshHeader(index, true);
+    if (listDimensionCategoryGroup[index].offset!.dy >
+        scrollControllerGlobally.position.maxScrollExtent)
+      await scrollControllerGlobally.animateTo(
+        scrollControllerGlobally.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.fastOutSlowIn,
+      );
+    else if (index == 0)
+      await scrollControllerGlobally.animateTo(
+        0,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.decelerate,
+      );
+    else
+      await scrollControllerGlobally.animateTo(
+        (listDimensionCategoryGroup[index].offset!.dy -
+                listDimensionCategoryGroup[index].size!.height) +
+            (index == 1 ? 20 : 28 * index),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.fastOutSlowIn,
+      );
+    shouldListenToTouchScroll.value = true;
   }
 }

@@ -58,11 +58,15 @@ class _HomeSliverWithTabState extends State<HomeSliverWithTab> {
                         SliverPersistentHeader(
                           delegate: MyHeaderTitle(
                             bloc.listCategory[i].category,
-                            (visible) => bloc.refreshHeader(
-                              i,
-                              visible,
-                              lastIndex: i > 0 ? i - 1 : null,
-                            ),
+                            (visible) => bloc.shouldListenToTouchScroll.value
+                                ? bloc.refreshHeader(
+                                    i,
+                                    visible,
+                                    lastIndex: i > 0 ? i - 1 : null,
+                                  )
+                                : null,
+                            (dimension) =>
+                                bloc.listDimensionCategoryGroup[i] = dimension,
                           ),
                         ),
                         SliverBodyItems(
@@ -100,7 +104,9 @@ class _FlexibleSpaceBarHeader extends StatelessWidget {
       pinned: valueScroll < 90 ? true : false,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
-        stretchModes: const [StretchMode.zoomBackground],
+        stretchModes: const [
+          StretchMode.zoomBackground,
+        ],
         background: Stack(
           fit: StackFit.expand,
           children: [
@@ -197,7 +203,7 @@ class _HeaderSliver extends SliverPersistentHeaderDelegate {
               child: percent > 0.1
                   ? Container(
                       height: 0.5,
-                      color: Colors.white10,
+                      color: Colors.white,
                     )
                   : null,
             ),

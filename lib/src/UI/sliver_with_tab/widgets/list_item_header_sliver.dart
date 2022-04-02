@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_jpv/src/UI/sliver_with_tab/controller/controller.dart';
 import 'package:flutter_sample_jpv/src/UI/sliver_with_tab/models/models.dart';
@@ -25,7 +27,7 @@ class ListItemHeaderSliver extends StatelessWidget {
               right: size.width -
                   (itemsOffset[itemsOffset.length - 1] -
                       itemsOffset[itemsOffset.length - 2])),
-          physics: const NeverScrollableScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           controller: bloc.scrollControllerItemHeader,
           scrollDirection: Axis.horizontal,
           child: ValueListenableBuilder(
@@ -37,27 +39,35 @@ class ListItemHeaderSliver extends StatelessWidget {
                   (index) {
                     return GetBoxOffset(
                       offset: (offSet) {
+                        inspect(offSet);
+
                         return itemsOffset[index] = offSet.dx;
                       },
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                          top: 8,
-                          bottom: 8,
-                          right: 8,
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: index == snapshot!.index ? Colors.white : null,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Text(
-                          bloc.listCategory[index].category,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: index == snapshot.index
-                                ? Colors.black
-                                : Colors.white,
+                      child: GestureDetector(
+                        onTap: () async {
+                          bloc.onHeaderPressed(index);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            top: 8,
+                            bottom: 8,
+                            right: 8,
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color:
+                                index == snapshot!.index ? Colors.white : null,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Text(
+                            bloc.listCategory[index].category,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: index == snapshot.index
+                                  ? Colors.black
+                                  : Colors.white,
+                            ),
                           ),
                         ),
                       ),
