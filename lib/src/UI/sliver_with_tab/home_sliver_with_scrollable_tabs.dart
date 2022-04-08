@@ -71,7 +71,17 @@ class _HomeSliverWithTabState extends State<HomeSliverWithTab> {
                         ),
                         SliverBodyItems(
                           listItem: bloc.listCategory[i].products,
-                        )
+                        ),
+                        SliverToBoxAdapter(
+                            child: Column(
+                          children: [
+                            const SizedBox(height: 32),
+                            Container(
+                              height: 0.5,
+                              color: Colors.white.withOpacity(0.3),
+                            )
+                          ],
+                        ))
                       ]
                     ],
                   );
