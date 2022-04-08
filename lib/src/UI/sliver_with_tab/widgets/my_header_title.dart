@@ -28,10 +28,10 @@ class MyHeaderTitle extends SliverPersistentHeaderDelegate {
       onHeaderChange(false);
     }
     return GetBoxOffset(
-      offset: (offSet) {
-        inspect(offSet);
-      },
+      offset: (offSet) {},
       dimension: (dimension) {
+        inspect(dimension);
+
         categoryDimension(dimension);
       },
       child: Padding(

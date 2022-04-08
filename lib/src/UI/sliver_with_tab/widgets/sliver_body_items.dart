@@ -74,13 +74,13 @@ class SliverBodyItems extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (index == listItem.length - 1) ...[
-                  const SizedBox(height: 32),
-                  Container(
-                    height: 0.5,
-                    color: Colors.white.withOpacity(0.3),
-                  )
-                ]
+                // if (index == listItem.length - 1) ...[
+                //   const SizedBox(height: 32),
+                //   Container(
+                //     height: 0.5,
+                //     color: Colors.white.withOpacity(0.3),
+                //   )
+                // ]
               ],
             ),
           );

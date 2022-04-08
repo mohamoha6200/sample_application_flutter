@@ -39,7 +39,7 @@ class ListItemHeaderSliver extends StatelessWidget {
                   (index) {
                     return GetBoxOffset(
                       offset: (offSet) {
-                        inspect(offSet);
+                        // inspect(offSet);
 
                         return itemsOffset[index] = offSet.dx;
                       },
