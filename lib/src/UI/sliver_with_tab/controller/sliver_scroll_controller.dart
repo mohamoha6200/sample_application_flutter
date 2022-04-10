@@ -7,13 +7,6 @@ import 'package:flutter_sample_jpv/src/UI/sliver_with_tab/models/models.dart';
 
 import '../widgets/my_header_title.dart';
 
-class Dimension {
-  final Offset? offset;
-  final Size? size;
-
-  Dimension({this.offset, this.size});
-}
-
 class SliverScrollController {
   //List of products - Lista de productos
   late List<ProductCategory> listCategory;
@@ -21,7 +14,7 @@ class SliverScrollController {
   //list of offSet values - Lista de valores offSet de los item
   List<double> listOffSetItemHeader = [];
   // list offsets of categories inside the SliverList
-  List<Dimension> listDimensionCategoryGroup = [];
+  List<double> listOffsetCategoryGroup = [];
 
   //Header notifier - Notificaciones de cabereca
   final headerNotifier = ValueNotifier<MyHeader?>(null);
@@ -58,180 +51,24 @@ class SliverScrollController {
     productsFour.shuffle();
 
     listCategory = [
-      // ProductCategory(
-      //   category: 'Pepsi',
-      //   products: [
-      //     // Product(
-      //     //   name: 'Pepsi 1',
-      //     //   image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //     //   description:
-      //     //       'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //     //   price: '\$4',
-      //     // ),
-      //     Product(
-      //       name: 'Pepsi 2',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //   ],
-      // ),
-      ProductCategory(
-        category: 'Pepsi',
-        products: [
-          Product(
-            name: 'Pepsi 1',
-            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-            description:
-                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-            price: '\$4',
-          ),
-          Product(
-            name: 'Pepsi 1',
-            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-            description:
-                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-            price: '\$4',
-          ),
-        ],
-      ),
-      ProductCategory(
-        category: 'Pizza0',
-        products: [
-          Product(
-            name: 'Pizza',
-            image: 'assets/sliver_with_scrollable_tabs/pizza.jpg',
-            description:
-                'Pizza is a savory dish of Italian origin consisting of a usually round, flattened base of leavened wheat-based dough to bake.',
-            price: '\$39',
-          ),
-        ],
-      ),
-      ProductCategory(
-        category: 'Pepsi',
-        products: [
-          Product(
-            name: 'Pepsi 1',
-            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-            description:
-                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-            price: '\$4',
-          ),
-          Product(
-            name: 'Pepsi 1',
-            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-            description:
-                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-            price: '\$4',
-          ),
-        ],
-      ),
-
-      // ProductCategory(
-      //   category: 'Pepsi',
-      //   products: [
-      //     Product(
-      //       name: 'Pepsi 1',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //     Product(
-      //       name: 'Pepsi 2',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //   ],
-      // ),
-      // ProductCategory(
-      //   category: 'Pepsi',
-      //   products: [
-      //     Product(
-      //       name: 'Pepsi 1',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //     Product(
-      //       name: 'Pepsi 2',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //   ],
-      // ),
-      // ProductCategory(
-      //   category: 'Pepsi',
-      //   products: [
-      //     Product(
-      //       name: 'Pepsi 1',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //   ],
-      // ),
-      // ProductCategory(
-      //   category: 'Pepsi',
-      //   products: [
-      //     Product(
-      //       name: 'Pepsi 1',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //     Product(
-      //       name: 'Pepsi 2',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //   ],
-      // ),
-      // ProductCategory(
-      //   category: 'Pepsi',
-      //   products: [
-      //     Product(
-      //       name: 'Pepsi 1',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //     Product(
-      //       name: 'Pepsi 2',
-      //       image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
-      //       description:
-      //           'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
-      //       price: '\$4',
-      //     ),
-      //   ],
-      // ),
-      ProductCategory(
-        category: 'Cheese Cake',
-        products: productsFour,
-      ),
-
-      ProductCategory(
-        category: 'Cheese Cake',
-        products: productsFour,
-      ),
-      ProductCategory(
-        category: 'Order Again',
-        products: products,
-      ),
       ProductCategory(
         category: 'Picked For You',
-        products: productsTwo,
+        products: [
+          Product(
+            name: 'Pepsi',
+            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
+            description:
+                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
+            price: '\$4',
+          ),
+          Product(
+            name: 'Coke 1',
+            image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
+            description:
+                'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
+            price: '\$4',
+          ),
+        ],
       ),
       ProductCategory(
         category: 'Pizza',
@@ -243,18 +80,23 @@ class SliverScrollController {
                 'Pizza is a savory dish of Italian origin consisting of a usually round, flattened base of leavened wheat-based dough to bake.',
             price: '\$39',
           ),
-          Product(
-            name: 'Pizza',
-            image: 'assets/sliver_with_scrollable_tabs/pizza.jpg',
-            description:
-                'Pizza is a savory dish of Italian origin consisting of a usually round, flattened base of leavened wheat-based dough to bake.',
-            price: '\$39',
-          ),
         ],
+      ),
+      ProductCategory(
+        category: 'Cheese Cake',
+        products: productsFour,
+      ),
+      ProductCategory(
+        category: 'Order Again',
+        products: products,
       ),
       ProductCategory(
         category: 'Startes',
         products: productsThree,
+      ),
+      ProductCategory(
+        category: 'Gimpub Sushi',
+        products: productsFour,
       ),
       ProductCategory(
         category: 'Fast Food',
@@ -267,17 +109,13 @@ class SliverScrollController {
             price: '\$4',
           ),
           Product(
-            name: 'Chapati',
+            name: 'Chapati2',
             image: 'assets/sliver_with_scrollable_tabs/sandiwch.png',
             description:
                 'Trim bread from all sides and apply butter on one breast, then apply the green chutney all over.',
             price: '\$4',
           ),
         ],
-      ),
-      ProductCategory(
-        category: 'Gimpub Sushi',
-        products: productsFour,
       ),
     ];
   }
@@ -286,8 +124,8 @@ class SliverScrollController {
     loadDataRandom();
     listOffSetItemHeader =
         List.generate(listCategory.length, (index) => index.toDouble());
-    listDimensionCategoryGroup = List.generate(listCategory.length,
-        (index) => Dimension(offset: Offset.zero, size: Size.zero));
+    listOffsetCategoryGroup =
+        List.generate(listCategory.length, (index) => index.toDouble());
     scrollControllerGlobally = ScrollController();
     scrollControllerItemHeader = ScrollController();
 
@@ -365,7 +203,7 @@ class SliverScrollController {
   onHeaderPressed(int index) async {
     shouldListenToTouchScroll.value = false;
     refreshHeader(index, true);
-    if (listDimensionCategoryGroup[index].offset!.dy >
+    if (listOffsetCategoryGroup[index] >
         scrollControllerGlobally.position.maxScrollExtent)
       await scrollControllerGlobally.animateTo(
         scrollControllerGlobally.position.maxScrollExtent,
@@ -380,7 +218,7 @@ class SliverScrollController {
       );
     else {
       await scrollControllerGlobally.animateTo(
-        (listDimensionCategoryGroup[index].offset!.dy - headerTitle - 20),
+        (listOffsetCategoryGroup[index] - headerTitle - 20),
         duration: const Duration(milliseconds: 300),
         curve: Curves.fastOutSlowIn,
       );

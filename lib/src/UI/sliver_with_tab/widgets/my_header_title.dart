@@ -12,11 +12,11 @@ class MyHeaderTitle extends SliverPersistentHeaderDelegate {
   MyHeaderTitle(
     this.title,
     this.onHeaderChange,
-    this.categoryDimension,
+    this.categoryOffset,
   );
   final OnHeaderChange onHeaderChange;
   final String title;
-  final ValueChanged<Dimension> categoryDimension;
+  final ValueChanged<Offset> categoryOffset;
 
   @override
   Widget build(
@@ -28,11 +28,8 @@ class MyHeaderTitle extends SliverPersistentHeaderDelegate {
       onHeaderChange(false);
     }
     return GetBoxOffset(
-      offset: (offSet) {},
-      dimension: (dimension) {
-        inspect(dimension);
-
-        categoryDimension(dimension);
+      offset: (offSet) {
+        categoryOffset(offSet);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0),

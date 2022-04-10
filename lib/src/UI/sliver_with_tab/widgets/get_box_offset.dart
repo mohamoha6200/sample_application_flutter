@@ -4,13 +4,11 @@ import 'package:flutter_sample_jpv/src/UI/sliver_with_tab/controller/controller.
 class GetBoxOffset extends StatefulWidget {
   final Widget child;
   final Function(Offset offset) offset;
-  final Function(Dimension dimension)? dimension;
 
   const GetBoxOffset({
     Key? key,
     required this.child,
     required this.offset,
-    this.dimension,
   }) : super(key: key);
 
   @override
@@ -31,8 +29,6 @@ class _GetBoxOffsetState extends State<GetBoxOffset> {
       offset = box.localToGlobal(Offset.zero);
       size = box.size;
       widget.offset(offset);
-      if (widget.dimension != null)
-        widget.dimension!(Dimension(offset: offset, size: size));
     });
   }
 

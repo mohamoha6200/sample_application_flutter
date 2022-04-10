@@ -65,8 +65,8 @@ class _HomeSliverWithTabState extends State<HomeSliverWithTab> {
                                     lastIndex: i > 0 ? i - 1 : null,
                                   )
                                 : null,
-                            (dimension) =>
-                                bloc.listDimensionCategoryGroup[i] = dimension,
+                            (offset) =>
+                                bloc.listOffsetCategoryGroup[i] = offset.dy,
                           ),
                         ),
                         SliverBodyItems(
